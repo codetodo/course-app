@@ -27,12 +27,12 @@ public class FrontController extends HttpServlet {
 			Command command = commandFactory.create("GET|courses");
 
 			view = command.execute(request, response);
-
+			dispatch(request, response, view);
 		} catch (Exception e) {
 			view = "error.jsp";
 		}
 
-		dispatch(request, response, view);
+		
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
