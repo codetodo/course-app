@@ -26,7 +26,7 @@
 		<param-name>db.password</param-name>
 		<param-value></param-value>
 	</context-param>
-	
+
 	<!-- <context-param> -->
 	<!-- <param-name>db.tcpServer</param-name> -->
 	<!-- <param-value>-tcpAllowOthers</param-value> -->
@@ -36,7 +36,7 @@
 		<servlet-name>FrontController</servlet-name>
 		<servlet-class>com.codetodo.courseapp.controller.FrontController</servlet-class>
 	</servlet>
-	
+
 	<servlet>
 		<servlet-name>H2Console</servlet-name>
 		<servlet-class>org.h2.server.web.WebServlet</servlet-class>
@@ -46,11 +46,16 @@
 	<servlet-mapping>
 		<servlet-name>FrontController</servlet-name>
 		<url-pattern>/</url-pattern>
-	</servlet-mapping>	
-	
+	</servlet-mapping>
+
 	<servlet-mapping>
 		<servlet-name>H2Console</servlet-name>
 		<url-pattern>/console/*</url-pattern>
 	</servlet-mapping>
+
+	<error-page>
+		<error-code>500</error-code>
+		<location>/views/errors/server-error.jsp</location>
+	</error-page>
 
 </web-app>

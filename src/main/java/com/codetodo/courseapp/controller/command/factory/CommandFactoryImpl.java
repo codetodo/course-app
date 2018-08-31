@@ -18,21 +18,10 @@ public class CommandFactoryImpl implements CommandFactory {
 
 	private static CommandFactory instance;
 
-	private final BeanFactory factory;
+	private final BeanFactory beanFactory;
 
-	private CommandFactoryImpl(BeanFactory factory) {
-		this.factory = factory == null ? getDefaultBeanFactory() : factory;
-	}
-
-	public static CommandFactory getInstance() {
-		return getInstance(null);
-	}
-
-	public static CommandFactory getInstance(BeanFactory factory) {
-		if (instance == null) {
-			instance = new CommandFactoryImpl(factory);
-		}
-		return instance;
+	private CommandFactoryImpl(BeanFactory beanFactory) {
+		this.beanFactory = beanFactory == null ? getDefaultBeanFactory() : beanFactory;
 	}
 
 	@Override
@@ -44,7 +33,18 @@ public class CommandFactoryImpl implements CommandFactory {
 			throw new IllegalStateException("There is no registered command for operation " + operation);
 		}
 
-		return factory.getBean(name);
+		return beanFactory.getBean(name);
+	}
+
+	public static CommandFactory getInstance() {
+		return getInstance(null);
+	}
+
+	public static CommandFactory getInstance(BeanFactory factory) {
+		if (instance == null) {
+			instance = new CommandFactoryImpl(factory);
+		}
+		return instance;
 	}
 
 	private BeanFactory getDefaultBeanFactory() {
