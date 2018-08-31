@@ -11,11 +11,7 @@
 </head>
 
 <body>
-	<h1>ERRORRRR FULAAAAAAA!!</h1>
-	<c:set var="exception"
-		value="${requestScope['javax.servlet.error.exception']}" />
-
-	<jsp:scriptlet>exception.printStackTrace(new java.io.PrintWriter(out));</jsp:scriptlet>
+	<h1>ERRORRRR!!</h1>	
 </body>
 
 </html>

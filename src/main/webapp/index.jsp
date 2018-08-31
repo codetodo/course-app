@@ -42,7 +42,7 @@
 			</tbody>
 		</table>
 
-		<a href="http://google.com" class="btn btn-primary">Go to Google</a>
+		<a href="courses/add" class="btn btn-primary">Nuevo</a>
 
 	</div>
 

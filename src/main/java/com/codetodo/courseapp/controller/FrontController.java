@@ -19,28 +19,31 @@ public class FrontController extends HttpServlet {
 	public FrontController() {
 	}
 
-	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, java.io.IOException {
+	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, java.io.IOException {
 		String view = null;
 
 		try {
 			CommandFactory commandFactory = CommandFactoryImpl.getInstance();
-			Command command = commandFactory.create("GET|courses");
+			Command command = commandFactory.create(request);
 
 			view = command.execute(request, response);
-			
+
 		} catch (Exception e) {
 			view = "views/errors/general-error.jsp";
 		}
 
 		dispatch(request, response, view);
-		
+
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		processRequest(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		processRequest(request, response);
 	}
 
