@@ -1,0 +1,64 @@
+{
+	"defs": {
+		"listCoursesCommand": {
+			"beanClass": "com.codetodo.courseapp.controller.command.course.ListCoursesCommand",
+			"singleton": "true",
+			"properties": [
+				{
+					"name": "courseService",
+					"refBean": "courseService"
+				}
+			]
+		},
+		"addCourseCommand": {
+			"beanClass": "com.codetodo.courseapp.controller.command.course.AddCourseCommand",
+			"singleton": "true",
+			"properties": [
+				{
+					"name": "professorService",
+					"refBean": "professorService"
+				}
+			]
+		},
+		"createCourseCommand": {
+			"beanClass": "com.codetodo.courseapp.controller.command.course.CreateCourseCommand",
+			"singleton": "true",
+			"properties": [
+				{
+					"name": "listCoursesCommand",
+					"refBean": "listCoursesCommand"
+				},
+				{
+					"name": "courseService",
+					"refBean": "courseService"
+				}
+			]
+		},
+		"courseService": {
+			"beanClass": "com.codetodo.courseapp.service.course.impl.CourseServiceImpl",
+			"singleton": "true",
+			"properties": [
+				{
+					"name": "courseDAO",
+					"refBean": "courseDAO"
+				}
+			]
+		},
+		"professorService": {
+			"beanClass": "com.codetodo.courseapp.service.professor.impl.ProfessorServiceImpl",
+			"singleton": "true",
+			"properties": [
+				{
+					"name": "professorDAO",
+					"refBean": "professorDAO"
+				}
+			]
+		},
+		"courseDAO": {
+			"beanClass": "com.codetodo.courseapp.dao.course.impl.JDBCCourseDAO"			
+		},
+		"professorDAO": {
+			"beanClass": "com.codetodo.courseapp.dao.professor.impl.JDBCProfessorDAO"			
+		}
+	}
+}

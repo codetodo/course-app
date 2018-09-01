@@ -1,39 +1,82 @@
 package com.codetodo.courseapp.bean.factory;
 
-import com.codetodo.courseapp.controller.command.Command;
-import com.codetodo.courseapp.controller.command.course.AddCourseCommand;
-import com.codetodo.courseapp.controller.command.course.CreateCourseCommand;
-import com.codetodo.courseapp.controller.command.course.ListCoursesCommand;
-import com.codetodo.courseapp.dao.course.impl.JDBCCourseDAO;
-import com.codetodo.courseapp.dao.professor.impl.JDBCProfessorDAO;
-import com.codetodo.courseapp.service.course.CourseService;
-import com.codetodo.courseapp.service.course.impl.CourseServiceImpl;
-import com.codetodo.courseapp.service.professor.impl.ProfessorServiceImpl;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.apache.commons.beanutils.BeanUtils;
 
 public class BeanFactoryImpl implements BeanFactory {
 
+	private static final Logger LOGGER = Logger.getLogger(BeanFactoryImpl.class.getName());
+
 	private static BeanFactory instance = null;
 
-	private BeanFactoryImpl() {
+	/** */
+	private Map<String, Object> singlentonBeans = new HashMap<>();
+
+	private Map<String, BeanDef> beanDefs = new HashMap<>();
+
+	private BeanFactoryImpl(BeanDefinitionsLoader beanDefinitionsLoader) {
+		beanDefs = beanDefinitionsLoader.load();
 	}
 
 	@Override
-	public Command getBean(String name) {
-		if ("listCoursesCommand".equals(name)) {
-			return new ListCoursesCommand(new CourseServiceImpl(new JDBCCourseDAO()));
-		} else if ("addCourseCommand".equals(name)) {
-			return new AddCourseCommand(new ProfessorServiceImpl(new JDBCProfessorDAO()));
-		} else if ("createCourseCommand".equals(name)) {
-			CourseService courseService = new CourseServiceImpl(new JDBCCourseDAO());
-
-			return new CreateCourseCommand(courseService, new ListCoursesCommand(courseService));
+	public Object getBean(String name) {
+		try {
+			return createBeanAux(name);
+		} catch (Exception e) {
+			LOGGER.log(Level.SEVERE, "Failed bean creation", e);
+			throw new RuntimeException("Failed bean creation: " + name, e);
 		}
-		return null;
+	}
+
+	private Object createBeanAux(String name)
+			throws ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
+		Object bean = singlentonBeans.get(name);
+
+		if (bean != null) {
+			return bean;
+		}
+
+		BeanDef beanDef = beanDefs.get(name);
+
+		if (beanDef == null) {
+			throw new IllegalStateException("There is no bean register with name '" + name + "'");
+		}
+
+		Class<?> beanClass = Class.forName(beanDef.getBeanClass());
+		Object instance = beanClass.newInstance();
+
+		for (PropertyDef propertyDef : beanDef.getProperties()) {
+			Object propertyValue = null;
+			if (propertyDef.isRefType()) {
+				propertyValue = createBeanAux(propertyDef.getName());
+			} else {
+				propertyValue = propertyDef.getValue();
+			}
+			if (propertyValue != null) {
+				setProperty(instance, propertyDef.getName(), propertyValue);
+			}
+		}
+
+		if (beanDef.isSingleton()) {
+			singlentonBeans.put(name, instance);
+		}		
+
+		return instance;
+	}
+
+	private void setProperty(Object bean, String name, Object value)
+			throws IllegalAccessException, InvocationTargetException {
+		BeanUtils.setProperty(bean, name, value);
 	}
 
 	public static BeanFactory getInstance() {
 		if (instance == null) {
-			instance = new BeanFactoryImpl();
+			instance = new BeanFactoryImpl(new JsonBeanDefinitionsLoader());
 		}
 		return instance;
 	}

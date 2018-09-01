@@ -37,7 +37,7 @@ public class CommandFactoryImpl implements CommandFactory {
 			throw new IllegalStateException("There is no registered command for operation " + op);
 		}
 
-		return beanFactory.getBean(name);
+		return (Command)beanFactory.getBean(name);
 	}
 
 	public static CommandFactory getInstance() {

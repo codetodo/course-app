@@ -15,11 +15,14 @@ public class CreateCourseCommand implements Command {
 
 	private CourseService courseService;
 
-	private Command listCourseCommand;
+	private Command listCoursesCommand;
 
-	public CreateCourseCommand(CourseService courseService, Command listCourseCommand) {
+	public void setCourseService(CourseService courseService) {
 		this.courseService = courseService;
-		this.listCourseCommand = listCourseCommand;
+	}
+
+	public void setListCoursesCommand(Command listCoursesCommand) {
+		this.listCoursesCommand = listCoursesCommand;
 	}
 
 	@Override
@@ -35,10 +38,10 @@ public class CreateCourseCommand implements Command {
 				.setHours(Integer.valueOf(hours)).setLevel(CourseLevel.fromId(levelId)).build();
 
 		courseService.create(course);
-		
+
 		request.setAttribute("createdCourse", course);
 
-		return listCourseCommand.execute(request, response);
+		return listCoursesCommand.execute(request, response);
 	}
 
 }

@@ -17,6 +17,10 @@ public class ProfessorServiceImpl implements ProfessorService {
 		this.professorDAO = professorDAO;
 	}
 
+	public void setProfessorDAO(ProfessorDAO professorDAO) {
+		this.professorDAO = professorDAO;
+	}
+
 	@Override
 	public List<Professor> findAll() {
 		return professorDAO.findAll();
