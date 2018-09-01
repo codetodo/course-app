@@ -13,12 +13,17 @@ public class Course implements Serializable {
 	private final String title;
 	private final int hours;
 	private final CourseLevel level;
+	private final boolean isActive;
+
+	private final Professor professor;
 
 	private Course(Builder builder) {
 		id = builder.id;
 		title = builder.title;
 		hours = builder.hours;
 		level = builder.level;
+		isActive = builder.isActive;
+		professor = builder.professor;
 	}
 
 	public Long getId() {
@@ -35,6 +40,14 @@ public class Course implements Serializable {
 
 	public CourseLevel getLevel() {
 		return level;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public Professor getProfessor() {
+		return professor;
 	}
 
 	@Override
@@ -56,10 +69,12 @@ public class Course implements Serializable {
 
 	public static class Builder {
 
-		public Long id;
-		public CourseLevel level;
-		public int hours;
-		public String title;
+		private Long id;
+		private CourseLevel level;
+		private int hours;
+		private String title;
+		private boolean isActive;
+		private Professor professor;
 
 		public Builder() {
 
@@ -85,6 +100,16 @@ public class Course implements Serializable {
 			return this;
 		}
 
+		public Builder setProfessor(Professor professor) {
+			this.professor = professor;
+			return this;
+		}
+
+		public Builder setActive(boolean isActive) {
+			this.isActive = isActive;
+			return this;
+		}
+
 		public Course build() {
 			return new Course(this);
 		}
@@ -92,17 +117,48 @@ public class Course implements Serializable {
 	}
 
 	public enum CourseLevel {
-		BASIC, MEDIUM, ADVANCED;
-		
-		static final Map<String, CourseLevel> VALUES = new HashMap<String, CourseLevel>();
+		BASIC("1", "Basico"), MEDIUM("2", "Intermedio"), ADVANCED("3", "Avanzado");
+
+		static final Map<String, CourseLevel> BY_NAME_MAPPER = new HashMap<String, CourseLevel>();
+		static final Map<String, CourseLevel> BY_ID_MAPPER = new HashMap<String, CourseLevel>();
+
+		private String id;
+		private String text;
 
 		static {
-			for (CourseLevel level : CourseLevel.values())
-				VALUES.put(level.toString(), level);
+			for (CourseLevel level : CourseLevel.values()) {
+				BY_NAME_MAPPER.put(level.toString(), level);
+				BY_ID_MAPPER.put(level.id, level);
+			}
 		}
-		
-		public static CourseLevel fromString(String value) {
-			return VALUES.get(value);
+
+		private CourseLevel(String id, String text) {
+			this.id = id;
+			this.text = text;
+		}
+
+		public String getId() {
+			return id;
+		}
+
+		public void setId(String id) {
+			this.id = id;
+		}
+
+		public String getText() {
+			return text;
+		}
+
+		public void setText(String text) {
+			this.text = text;
+		}
+
+		public static CourseLevel fromName(String value) {
+			return BY_NAME_MAPPER.get(value);
+		}
+
+		public static CourseLevel fromId(String value) {
+			return BY_ID_MAPPER.get(value);
 		}
 	}
 

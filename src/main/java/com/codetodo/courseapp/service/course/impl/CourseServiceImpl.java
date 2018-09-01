@@ -27,4 +27,9 @@ public class CourseServiceImpl implements CourseService {
 		return courseDAO.findAll();
 	}
 
+	@Override
+	public void create(Course course) {
+		courseDAO.create(course);
+	}
+
 }

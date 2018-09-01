@@ -17,7 +17,7 @@ public class CommandFactoryImpl implements CommandFactory {
 		commandNames.put("GET", "listCoursesCommand");
 		commandNames.put("GET|courses", "listCoursesCommand");
 		commandNames.put("GET|courses/add", "addCourseCommand");
-		commandNames.put("POST|courses/course", "createCourseCommand");
+		commandNames.put("POST|courses", "createCourseCommand");
 	}
 
 	private static CommandFactory instance;

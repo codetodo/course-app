@@ -11,6 +11,7 @@ import com.codetodo.courseapp.dao.ConnectionFactory;
 import com.codetodo.courseapp.dao.course.CourseDAO;
 import com.codetodo.courseapp.model.Course;
 import com.codetodo.courseapp.model.Course.CourseLevel;
+import com.codetodo.courseapp.model.Professor;
 
 public class JDBCCourseDAO implements CourseDAO {
 
@@ -18,7 +19,7 @@ public class JDBCCourseDAO implements CourseDAO {
 	public List<Course> findAll() {
 		List<Course> result = new ArrayList<>();
 
-		String sql = "SELECT c.id, c.title, c.level, c.hours FROM courses c ORDER BY c.title";
+		String sql = "SELECT c.id, c.title, c.level, c.hours, p.name FROM COURSES c INNER JOIN PROFESSORS p on p.id = c.professor_id WHERE c.active = true ORDER BY c.title";
 
 		try (Connection c = ConnectionFactory.getConnection();
 				PreparedStatement stmt = c.prepareStatement(sql);
@@ -26,7 +27,8 @@ public class JDBCCourseDAO implements CourseDAO {
 
 			while (rs.next()) {
 				result.add(new Course.Builder().setId(rs.getLong("id")).setTitle(rs.getString("title"))
-						.setHours(rs.getInt("hours")).setLevel(CourseLevel.fromString(rs.getString("level"))).build());
+						.setHours(rs.getInt("hours")).setLevel(CourseLevel.fromName(rs.getString("level")))
+						.setProfessor(new Professor.Builder().setName(rs.getString("name")).build()).build());
 			}
 
 		} catch (SQLException e) {
@@ -43,15 +45,27 @@ public class JDBCCourseDAO implements CourseDAO {
 	}
 
 	@Override
-	public Long create(Course entity) {
-		// TODO
-		return null;
+	public void create(Course course) {
+		String sql = "INSERT INTO COURSES(TITLE,LEVEL,HOURS,ACTIVE,PROFESSOR_ID) VALUES (?,?,?,?,?)";
+
+		try (Connection c = ConnectionFactory.getConnection(); PreparedStatement stmt = c.prepareStatement(sql)) {
+
+			stmt.setString(1, course.getTitle());
+			stmt.setString(2, course.getLevel().toString());
+			stmt.setInt(3, course.getHours());
+			stmt.setBoolean(4, course.isActive());
+			stmt.setLong(5, course.getProfessor().getId());
+
+			stmt.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 
 	@Override
 	public void update(Course entity) {
 		throw new UnsupportedOperationException();
-
 	}
 
 	@Override

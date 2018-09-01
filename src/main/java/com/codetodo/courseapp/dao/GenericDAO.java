@@ -1,4 +1,4 @@
-package com.codetodo.courseapp.dao.course;
+package com.codetodo.courseapp.dao;
 
 import java.io.Serializable;
 import java.util.List;
@@ -8,7 +8,7 @@ public interface GenericDAO<T extends Serializable> {
 
 	T findById(Long id);
 
-	Long create(T entity);
+	void create(T entity);
 
 	void update(T entity);
 
