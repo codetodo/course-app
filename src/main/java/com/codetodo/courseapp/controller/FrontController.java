@@ -15,12 +15,15 @@ import com.codetodo.courseapp.controller.command.factory.CommandFactoryImpl;
 public class FrontController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	
+	public static final String ERROR_VIEW = "views/errors/general-error.jsp";
 
 	public FrontController() {
 	}
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, java.io.IOException {
+		
 		String view = null;
 
 		try {
@@ -30,7 +33,7 @@ public class FrontController extends HttpServlet {
 			view = command.execute(request, response);
 
 		} catch (Exception e) {
-			view = "views/errors/general-error.jsp";
+			view = ERROR_VIEW;
 		}
 
 		dispatch(request, response, view);

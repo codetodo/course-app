@@ -73,7 +73,7 @@
 							<tbody>
 								<c:forEach items="${courses}" var="course">
 									<tr>
-										<td>${course.title}</td>
+										<td><a href="#">${course.title}</a></td>
 										<td>${course.professor.name}</td>
 										<td>${course.level.text}</td>
 										<td>${course.hours}</td>
