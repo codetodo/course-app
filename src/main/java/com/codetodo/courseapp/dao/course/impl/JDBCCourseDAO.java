@@ -15,13 +15,19 @@ import com.codetodo.courseapp.model.Professor;
 
 public class JDBCCourseDAO implements CourseDAO {
 
+	private ConnectionFactory connectionFactory;
+
+	public void setConnectionFactory(ConnectionFactory connectionFactory) {
+		this.connectionFactory = connectionFactory;
+	}
+	
 	@Override
 	public List<Course> findAll() {
 		List<Course> result = new ArrayList<>();
 
 		String sql = "SELECT c.id, c.title, c.level, c.hours, p.name FROM COURSES c INNER JOIN PROFESSORS p on p.id = c.professor_id WHERE c.active = true ORDER BY c.title";
 
-		try (Connection c = ConnectionFactory.getConnection();
+		try (Connection c = connectionFactory.getConnection();
 				PreparedStatement stmt = c.prepareStatement(sql);
 				ResultSet rs = stmt.executeQuery()) {
 
@@ -40,7 +46,6 @@ public class JDBCCourseDAO implements CourseDAO {
 
 	@Override
 	public Course findById(Long id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -48,7 +53,7 @@ public class JDBCCourseDAO implements CourseDAO {
 	public void create(Course course) {
 		String sql = "INSERT INTO COURSES(TITLE,LEVEL,HOURS,ACTIVE,PROFESSOR_ID) VALUES (?,?,?,?,?)";
 
-		try (Connection c = ConnectionFactory.getConnection(); PreparedStatement stmt = c.prepareStatement(sql)) {
+		try (Connection c = connectionFactory.getConnection(); PreparedStatement stmt = c.prepareStatement(sql)) {
 
 			stmt.setString(1, course.getTitle());
 			stmt.setString(2, course.getLevel().toString());

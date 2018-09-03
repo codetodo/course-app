@@ -13,6 +13,11 @@ public class PropertyDef {
 		this.name = name;
 		this.value = value;
 	}
+	
+	public PropertyDef(String name, String refBean) {
+		this.name = name;
+		this.refBean = refBean;
+	}
 
 	public String getName() {
 		return name;

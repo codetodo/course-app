@@ -13,8 +13,14 @@ public class JsonBeanDefinitionsLoader implements BeanDefinitionsLoader {
 
 	private static final Logger LOGGER = Logger.getLogger(JsonBeanDefinitionsLoader.class.getName());
 
-	public static final String CONFIG_FILE_NAME = "bean-defs.json";
+	public static final String DEFAULT_CONFIG_FILE_NAME = "bean-defs.json";
 
+	private String fileName = DEFAULT_CONFIG_FILE_NAME;
+	
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	
 	@Override
 	public Map<String, BeanDef> load() {
 		try {
@@ -31,10 +37,10 @@ public class JsonBeanDefinitionsLoader implements BeanDefinitionsLoader {
 	private File getBeanDefsFile() throws FileNotFoundException {
 		ClassLoader classLoader = getClass().getClassLoader();
 
-		URL url = classLoader.getResource(CONFIG_FILE_NAME);
+		URL url = classLoader.getResource(fileName);
 		if (url == null) {
 			throw new FileNotFoundException(
-					String.format("Configuratio File '%s' does not exist in classpath", CONFIG_FILE_NAME));
+					String.format("Configuratio File '%s' does not exist in classpath", fileName));
 		}
 
 		return new File(url.getFile());

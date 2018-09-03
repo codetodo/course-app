@@ -1,10 +1,10 @@
 package com.codetodo.courseapp.service.course.impl;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.times;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +14,7 @@ import org.junit.Test;
 
 import com.codetodo.courseapp.dao.course.CourseDAO;
 import com.codetodo.courseapp.model.Course;
+import com.codetodo.courseapp.model.Professor;
 import com.codetodo.courseapp.service.course.CourseService;
 
 public class CourseServiceImplTest {
@@ -26,7 +27,7 @@ public class CourseServiceImplTest {
 	}
 
 	@Test
-	public void test() {
+	public void shouldFindAllCourses() {
 		List<Course> courses = Arrays.asList(new Course.Builder().setTitle("Test course").build());		
 		CourseDAO courseDAO = mock(CourseDAO.class);		
 		
@@ -39,6 +40,18 @@ public class CourseServiceImplTest {
 		verify(courseDAO, times(1)).findAll();
 		
 		assertNotNull(result);
+	}
+	
+	@Test
+	public void shouldCreateCourse() {
+		Course course = new Course.Builder().setTitle("Test course").setProfessor(new Professor.Builder().build()).build();	
+		CourseDAO courseDAO = mock(CourseDAO.class);		
+		
+		((CourseServiceImpl)courseService).setCourseDAO(courseDAO );
+		
+		courseService.create(course);
+		
+		verify(courseDAO).create(course);
 	}
 
 }

@@ -3,6 +3,7 @@ package com.codetodo.courseapp.bean.factory;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,22 +15,22 @@ public class BeanFactoryImpl implements BeanFactory {
 
 	private static BeanFactory instance = null;
 
-	/** */
 	private Map<String, Object> singlentonBeans = new HashMap<>();
 
 	private Map<String, BeanDef> beanDefs = new HashMap<>();
 
-	private BeanFactoryImpl(BeanDefinitionsLoader beanDefinitionsLoader) {
-		beanDefs = beanDefinitionsLoader.load();
+	private BeanFactoryImpl(BeanDefinitionsLoader beanDefsLoader) {
+		Objects.requireNonNull(beanDefsLoader);
+		beanDefs = beanDefsLoader.load();
 	}
 
 	@Override
-	public Object getBean(String name) {
+	public Object getBean(String beanName) {
 		try {
-			return createBeanAux(name);
+			return createBeanAux(beanName);
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "Failed bean creation", e);
-			throw new RuntimeException("Failed bean creation: " + name, e);
+			throw new RuntimeException("Failed bean creation: " + beanName, e);
 		}
 	}
 
@@ -75,8 +76,12 @@ public class BeanFactoryImpl implements BeanFactory {
 	}
 
 	public static BeanFactory getInstance() {
+		return getInstance(new JsonBeanDefinitionsLoader());
+	}
+	
+	public static BeanFactory getInstance(BeanDefinitionsLoader beanDefsLoader) {
 		if (instance == null) {
-			instance = new BeanFactoryImpl(new JsonBeanDefinitionsLoader());
+			instance = new BeanFactoryImpl(beanDefsLoader);
 		}
 		return instance;
 	}

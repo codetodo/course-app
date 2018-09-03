@@ -13,13 +13,19 @@ import com.codetodo.courseapp.model.Professor;
 
 public class JDBCProfessorDAO implements ProfessorDAO {
 
+	private ConnectionFactory connectionFactory;
+
+	public void setConnectionFactory(ConnectionFactory connectionFactory) {
+		this.connectionFactory = connectionFactory;
+	}
+
 	@Override
 	public List<Professor> findAll() {
 		List<Professor> result = new ArrayList<>();
 
 		String sql = "SELECT p.id, p.name, p.email FROM professors p ORDER BY p.name";
 
-		try (Connection c = ConnectionFactory.getConnection();
+		try (Connection c = connectionFactory.getConnection();
 				PreparedStatement stmt = c.prepareStatement(sql);
 				ResultSet rs = stmt.executeQuery()) {
 

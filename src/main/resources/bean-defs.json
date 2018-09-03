@@ -55,10 +55,40 @@
 			]
 		},
 		"courseDAO": {
-			"beanClass": "com.codetodo.courseapp.dao.course.impl.JDBCCourseDAO"			
+			"beanClass": "com.codetodo.courseapp.dao.course.impl.JDBCCourseDAO",
+			"properties": [
+				{
+					"name": "connectionFactory",
+					"refBean": "connectionFactory"
+				}
+			]		
 		},
 		"professorDAO": {
-			"beanClass": "com.codetodo.courseapp.dao.professor.impl.JDBCProfessorDAO"			
+			"beanClass": "com.codetodo.courseapp.dao.professor.impl.JDBCProfessorDAO",
+			"properties": [
+				{
+					"name": "connectionFactory",
+					"refBean": "connectionFactory"
+				}
+			]			
+		},
+		"connectionFactory": {
+		    "beanClass": "com.codetodo.courseapp.dao.H2ConnectionFactory",
+			"singleton": "true",
+			"properties": [
+				{
+					"name": "url",
+					"value": "jdbc:h2:~/test"
+				},
+				{
+					"name": "user",
+					"value": "sa"
+				},
+				{
+					"name": "pass",
+					"value": ""
+				}
+			]
 		}
 	}
 }
