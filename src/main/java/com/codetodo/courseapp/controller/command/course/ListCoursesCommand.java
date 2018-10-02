@@ -12,8 +12,11 @@ import com.codetodo.courseapp.model.Course;
 import com.codetodo.courseapp.service.course.CourseService;
 
 public class ListCoursesCommand implements Command {
+	
+	public static final String NAME = "ListCoursesCommand";
 
 	public final static String VIEW = "index.jsp";
+	
 	public final static String COURSE_ATTR_NAME = "courses";
 	
 	private CourseService courseService;

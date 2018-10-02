@@ -8,21 +8,28 @@ import javax.servlet.http.HttpServletRequest;
 import com.codetodo.courseapp.bean.factory.BeanFactory;
 import com.codetodo.courseapp.bean.factory.BeanFactoryImpl;
 import com.codetodo.courseapp.controller.command.Command;
+import com.codetodo.courseapp.controller.command.course.AddCourseCommand;
+import com.codetodo.courseapp.controller.command.course.CreateCourseCommand;
+import com.codetodo.courseapp.controller.command.course.ListCoursesCommand;
 
 public class CommandFactoryImpl implements CommandFactory {
 
-	private final static Map<String, String> commandNames = new HashMap<>();
+	private static final Map<String, String> commandNames = new HashMap<>();
 
 	static {
-		commandNames.put("GET", "listCoursesCommand");
-		commandNames.put("GET|courses", "listCoursesCommand");
-		commandNames.put("GET|courses/add", "addCourseCommand");		
-		commandNames.put("POST|courses", "createCourseCommand");
+		commandNames.put("GET", ListCoursesCommand.NAME);
+		commandNames.put("GET|courses", ListCoursesCommand.NAME);
+		commandNames.put("GET|courses/add", AddCourseCommand.NAME);
+		commandNames.put("POST|courses", CreateCourseCommand.NAME);
 	}
 
 	private static CommandFactory instance;
 
 	private final BeanFactory beanFactory;
+
+	public BeanFactory getBeanFactory() {
+		return beanFactory;
+	}
 
 	private CommandFactoryImpl(BeanFactory beanFactory) {
 		this.beanFactory = beanFactory == null ? getDefaultBeanFactory() : beanFactory;
@@ -37,7 +44,7 @@ public class CommandFactoryImpl implements CommandFactory {
 			throw new IllegalStateException("There is no registered command for operation " + op);
 		}
 
-		return (Command)beanFactory.getBean(name);
+		return (Command) beanFactory.getBean(name);
 	}
 
 	public static CommandFactory getInstance() {
@@ -50,17 +57,17 @@ public class CommandFactoryImpl implements CommandFactory {
 		}
 		return instance;
 	}
-	
-	private String getOperationFrom(HttpServletRequest request) {			
+
+	private String getOperationFrom(HttpServletRequest request) {
 		String httpMethod = request.getMethod();
 		String resource = request.getRequestURI().substring(request.getContextPath().length());
-		
+
 		if (resource.startsWith("/")) {
 			resource = resource.substring(1);
 		}
-		
+
 		String separator = resource.isEmpty() ? "" : "|";
-		
+
 		return httpMethod + separator + resource;
 	}
 

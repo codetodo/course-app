@@ -15,6 +15,8 @@ import com.codetodo.courseapp.model.Course.CourseLevel;
 import com.codetodo.courseapp.service.professor.ProfessorService;
 
 public class AddCourseCommand implements Command {
+	
+    public static final String NAME = "addCourseCommand";
 
 	public final static String VIEW = "views/course/add.jsp";
 	

@@ -10,6 +10,8 @@ import com.codetodo.courseapp.model.Professor;
 import com.codetodo.courseapp.service.course.CourseService;
 
 public class CreateCourseCommand implements Command {
+	
+	public static final String NAME = "addCourseCommand";
 
 	public final static String VIEW = "index.jsp";
 
