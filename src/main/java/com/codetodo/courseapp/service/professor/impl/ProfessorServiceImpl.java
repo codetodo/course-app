@@ -13,10 +13,6 @@ public class ProfessorServiceImpl implements ProfessorService {
 	public ProfessorServiceImpl() {
 	}
 
-	public ProfessorServiceImpl(ProfessorDAO professorDAO) {
-		this.professorDAO = professorDAO;
-	}
-
 	public void setProfessorDAO(ProfessorDAO professorDAO) {
 		this.professorDAO = professorDAO;
 	}
