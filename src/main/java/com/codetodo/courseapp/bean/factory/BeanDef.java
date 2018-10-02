@@ -7,7 +7,7 @@ public class BeanDef {
 	private String beanClass;
 	private boolean singleton = true;
 
-	private List<PropertyDef> properties = new ArrayList<PropertyDef>();
+	private List<PropertyDef> properties = new ArrayList<>();
 
 	public String getBeanClass() {
 		return beanClass;
