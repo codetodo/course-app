@@ -28,12 +28,8 @@ public class BeanDef {
 	public void addPropertyDef(PropertyDef propertyDef) {
 		properties.add(propertyDef);
 	}
-	
-	public boolean isSingleton() {
-		return singleton;
-	}
 
-	public boolean getSingleton() {
+	public boolean isSingleton() {
 		return singleton;
 	}
 
@@ -43,6 +39,6 @@ public class BeanDef {
 
 	@Override
 	public String toString() {
-		return beanClass.toString();
+		return beanClass;
 	}
 }
