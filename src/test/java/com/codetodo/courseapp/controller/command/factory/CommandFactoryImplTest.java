@@ -98,7 +98,7 @@ public class CommandFactoryImplTest {
 
 	@Test
 	public void shouldCreateInstanceWithDefaultBeanFactory() {
-		CommandFactory commandFactory = CommandFactoryImpl.getInstance(null);
+		CommandFactory commandFactory = CommandFactoryImpl.getInstance();
 		assertTrue(((CommandFactoryImpl)commandFactory).getBeanFactory() instanceof BeanFactoryImpl);
 
 	}
