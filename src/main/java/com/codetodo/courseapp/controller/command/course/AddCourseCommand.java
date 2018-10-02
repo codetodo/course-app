@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.Validate;
+
 import com.codetodo.courseapp.controller.command.Command;
 import com.codetodo.courseapp.dto.course.LevelDTO;
 import com.codetodo.courseapp.model.Professor;
@@ -15,27 +17,32 @@ import com.codetodo.courseapp.service.professor.ProfessorService;
 public class AddCourseCommand implements Command {
 
 	public final static String VIEW = "views/course/add.jsp";
+	
+	public final static String PROFESSORS_ATTR_NAME = "professors";
+	public final static String LEVELS_ATTR_NAME = "levels";
 
-	private ProfessorService profesorService;
+	private ProfessorService professorService;
 
 	public AddCourseCommand() {
 	}
 
-	public AddCourseCommand(ProfessorService profesorService) {
-		this.profesorService = profesorService;
+	public AddCourseCommand(ProfessorService professorService) {
+		this.professorService = professorService;
 	}
 
-	public void setProfessorService(ProfessorService profesorService) {
-		this.profesorService = profesorService;
+	public void setProfessorService(ProfessorService professorService) {
+		this.professorService = professorService;
 	}
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		List<Professor> professors = profesorService.findAll();
+		Validate.notNull(professorService, "'professorService' is required");
+		
+		List<Professor> professors = professorService.findAll();
 		List<LevelDTO> levels = getLevels();
 
-		request.setAttribute("professors", professors);
-		request.setAttribute("levels", levels);
+		request.setAttribute(PROFESSORS_ATTR_NAME, professors);
+		request.setAttribute(LEVELS_ATTR_NAME, levels);
 
 		return VIEW;
 	}
