@@ -33,8 +33,7 @@ public class FrontController extends HttpServlet {
 		String view = null;
 
 		try {
-			CommandFactory commandFactory = getCommandFactory();
-			Command command = commandFactory.create(request);
+			Command command = getCommandFactory().create(request);
 
 			view = command.execute(request, response);
 
@@ -46,11 +45,13 @@ public class FrontController extends HttpServlet {
 
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		processRequest(request, response);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		processRequest(request, response);

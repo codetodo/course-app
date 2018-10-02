@@ -91,7 +91,7 @@ public class FrontControllerTest {
 
 		verify(dispatcher, times(1)).forward(req, res);
 	}
-	
+
 	@Test
 	public void shouldDispatchToErrorPageWhenAnExceptionOcurred() throws ServletException, IOException {
 		ServletRequest req = mock(HttpServletRequest.class);
