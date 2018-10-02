@@ -15,19 +15,25 @@ import com.codetodo.courseapp.controller.command.factory.CommandFactoryImpl;
 public class FrontController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public static final String ERROR_VIEW = "views/errors/general-error.jsp";
+
+	private CommandFactory commandFactory;
 
 	public FrontController() {
 	}
 
+	public FrontController(CommandFactory commandFactory) {
+		this.commandFactory = commandFactory;
+	}
+
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, java.io.IOException {
-		
+
 		String view = null;
 
 		try {
-			CommandFactory commandFactory = CommandFactoryImpl.getInstance();
+			CommandFactory commandFactory = getCommandFactory();
 			Command command = commandFactory.create(request);
 
 			view = command.execute(request, response);
@@ -54,6 +60,13 @@ public class FrontController extends HttpServlet {
 			throws javax.servlet.ServletException, java.io.IOException {
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/" + view);
 		dispatcher.forward(request, response);
+	}
+
+	private CommandFactory getCommandFactory() {
+		if (commandFactory == null) {
+			commandFactory = CommandFactoryImpl.getInstance();
+		}
+		return commandFactory;
 	}
 
 }

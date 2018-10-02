@@ -43,8 +43,7 @@ public class JDBCProfessorDAO implements ProfessorDAO {
 
 	@Override
 	public Professor findById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override

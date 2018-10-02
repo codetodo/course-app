@@ -92,5 +92,23 @@ public class JDBCCourseDAOTest {
 		verify(stmt).close();
 		verify(stmt).executeUpdate();
 	}
+	
+	@Test(expected = UnsupportedOperationException.class)
+	public void shouldThrowUnsupportedOperationExceptionWhenInvokeFindById() throws SQLException {
+		Long id = 2l;
+		courseDAO.findById(id);
+	}
+	
+	@Test(expected = UnsupportedOperationException.class)
+	public void shouldThrowUnsupportedOperationExceptionWhenInvokeDelete() throws SQLException {
+		Long id = 2l;
+		courseDAO.delete(id);
+	}
+	
+	@Test(expected = UnsupportedOperationException.class)
+	public void shouldThrowUnsupportedOperationExceptionWhenInvoke() throws SQLException {
+		Course course = null;
+		courseDAO.update(course);
+	}
 
 }

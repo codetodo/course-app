@@ -20,7 +20,7 @@ public class JDBCCourseDAO implements CourseDAO {
 	public void setConnectionFactory(ConnectionFactory connectionFactory) {
 		this.connectionFactory = connectionFactory;
 	}
-	
+
 	@Override
 	public List<Course> findAll() {
 		List<Course> result = new ArrayList<>();
@@ -46,7 +46,7 @@ public class JDBCCourseDAO implements CourseDAO {
 
 	@Override
 	public Course findById(Long id) {
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override

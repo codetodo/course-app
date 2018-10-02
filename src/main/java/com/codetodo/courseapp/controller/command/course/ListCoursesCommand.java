@@ -13,7 +13,7 @@ import com.codetodo.courseapp.service.course.CourseService;
 
 public class ListCoursesCommand implements Command {
 	
-	public static final String NAME = "ListCoursesCommand";
+	public static final String NAME = "listCoursesCommand";
 
 	public final static String VIEW = "index.jsp";
 	

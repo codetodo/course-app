@@ -41,7 +41,7 @@ public class JDBCProfessorDAOTest {
 		when(conn.prepareStatement(any())).thenReturn(stmt);
 		when(stmt.executeQuery()).thenReturn(rs);
 		when(rs.next()).thenReturn(true).thenReturn(true).thenReturn(true).thenReturn(false);
-		
+
 		((JDBCProfessorDAO) professorDAO).setConnectionFactory(connectionFactory);
 
 		List<Professor> professors = professorDAO.findAll();
@@ -67,6 +67,24 @@ public class JDBCProfessorDAOTest {
 		((JDBCProfessorDAO) professorDAO).setConnectionFactory(connectionFactory);
 
 		professorDAO.findAll();
+	}
+
+	@Test(expected = UnsupportedOperationException.class)
+	public void shouldThrowUnsupportedOperationExceptionWhenInvokeFindById() throws SQLException {
+		Long id = 2l;
+		professorDAO.findById(id);
+	}
+
+	@Test(expected = UnsupportedOperationException.class)
+	public void shouldThrowUnsupportedOperationExceptionWhenInvokeDelete() throws SQLException {
+		Long id = 2l;
+		professorDAO.delete(id);
+	}
+
+	@Test(expected = UnsupportedOperationException.class)
+	public void shouldThrowUnsupportedOperationExceptionWhenInvoke() throws SQLException {
+		Professor professor = null;
+		professorDAO.update(professor);
 	}
 
 }
