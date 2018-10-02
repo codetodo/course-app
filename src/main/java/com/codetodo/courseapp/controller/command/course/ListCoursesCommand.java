@@ -12,6 +12,7 @@ import com.codetodo.courseapp.service.course.CourseService;
 public class ListCoursesCommand implements Command {
 
 	public final static String VIEW = "index.jsp";
+	public final static String COURSE_ATTR_NAME = "courses";
 	
 	private CourseService courseService;
 
@@ -30,7 +31,7 @@ public class ListCoursesCommand implements Command {
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		List<Course> courses = courseService.findAll();
 
-		request.setAttribute("courses", courses);
+		request.setAttribute(COURSE_ATTR_NAME, courses);
 		
 		return VIEW;
 	}

@@ -49,8 +49,8 @@ public class BeanFactoryImplTest {
 		BeanDefinitionsLoader beanDefsLoader = mock(BeanDefinitionsLoader.class);
 		Map<String, BeanDef> defs = getBeanDefs();
 
-		Optional<Entry<String, BeanDef>> singletonBean = defs.entrySet().stream().filter((e) -> e.getValue().isSingleton())
-				.findFirst();
+		Optional<Entry<String, BeanDef>> singletonBean = defs.entrySet().stream()
+				.filter((e) -> e.getValue().isSingleton()).findFirst();
 
 		when(beanDefsLoader.load()).thenReturn(defs);
 
