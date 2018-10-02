@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.Validate;
+
 import com.codetodo.courseapp.controller.command.Command;
 import com.codetodo.courseapp.model.Course;
 import com.codetodo.courseapp.service.course.CourseService;
@@ -29,6 +31,8 @@ public class ListCoursesCommand implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
+		Validate.notNull(courseService, "'courseService' is required");
+		
 		List<Course> courses = courseService.findAll();
 
 		request.setAttribute(COURSE_ATTR_NAME, courses);

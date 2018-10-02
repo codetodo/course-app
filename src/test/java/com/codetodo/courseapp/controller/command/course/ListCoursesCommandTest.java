@@ -16,7 +16,7 @@ import com.codetodo.courseapp.model.Course;
 import com.codetodo.courseapp.service.course.CourseService;
 
 public class ListCoursesCommandTest {
-	
+
 	private ListCoursesCommand listCoursesCommand;
 
 	@Before
@@ -27,23 +27,34 @@ public class ListCoursesCommandTest {
 	@Test
 	public void shouldReturnListViewWhenInvokeExecute() {
 		List<Course> courses = getCourses();
-		
+
 		HttpServletRequest request = mock(HttpServletRequest.class);
 		HttpServletResponse response = mock(HttpServletResponse.class);
-		
+
 		CourseService courseService = mock(CourseService.class);
-		
+
 		listCoursesCommand.setCourseService(courseService);
-		
-		
+
 		when(courseService.findAll()).thenReturn(courses);
-		
+
 		String resultView = listCoursesCommand.execute(request, response);
-		
+
 		verify(courseService, times(1)).findAll();
 		verify(request, times(1)).setAttribute(ListCoursesCommand.COURSE_ATTR_NAME, courses);
-		
+
 		assertEquals(ListCoursesCommand.VIEW, resultView);
+	}
+
+	@Test(expected = Exception.class)
+	public void shouldFailWhenInvokeExecuteAndCourseServiceIsNotSet() {
+		HttpServletRequest request = mock(HttpServletRequest.class);
+		HttpServletResponse response = mock(HttpServletResponse.class);
+
+		CourseService courseService = null;
+
+		listCoursesCommand = new ListCoursesCommand(courseService);
+
+		listCoursesCommand.execute(request, response);
 	}
 
 	private List<Course> getCourses() {
