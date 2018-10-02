@@ -5,6 +5,10 @@ public class LevelDTO {
 	private String id;
 	private String text;
 
+	public LevelDTO() {
+
+	}
+
 	public LevelDTO(String id, String text) {
 		this.id = id;
 		this.text = text;
