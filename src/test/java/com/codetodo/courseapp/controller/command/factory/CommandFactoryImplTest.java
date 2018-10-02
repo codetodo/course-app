@@ -2,6 +2,7 @@ package com.codetodo.courseapp.controller.command.factory;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -100,6 +101,15 @@ public class CommandFactoryImplTest {
 	public void shouldCreateInstanceWithDefaultBeanFactory() {
 		CommandFactory commandFactory = CommandFactoryImpl.getInstance();
 		assertTrue(((CommandFactoryImpl)commandFactory).getBeanFactory() instanceof BeanFactoryImpl);
+
+	}
+	
+	@Test
+	public void shouldCreateUniqueInstanceOfCommandFactory() {
+		CommandFactory commandFactory1 = CommandFactoryImpl.getInstance();
+		CommandFactory commandFactory2 = CommandFactoryImpl.getInstance();
+		
+		assertEquals(commandFactory1, commandFactory2);
 
 	}
 
