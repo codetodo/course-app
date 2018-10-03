@@ -1,0 +1,54 @@
+version: '3'
+
+networks:
+  cursosnetwork:
+    driver: bridge
+
+volumes:
+  nexus-data:
+  jenkins-data:
+  db-data:
+  war-data:
+
+services:
+  nexus:
+    image: sonatype/nexus
+    volumes:
+      - "nexus-data:/sonatype-work"
+    ports:
+      - 8081:8081
+    networks:
+      - cursosnetwork
+    container_name: cursos-nexus
+  sonarqube:
+    image: sonarqube
+    networks:
+      - cursosnetwork
+    ports:
+      - 9000:9000
+      - 9092:9092
+    container_name: cursos-sonarqube
+  jenkins:
+    image: jenkins
+    networks:
+      - cursosnetwork
+    privileged: true
+    user: root
+    ports:
+      - 8082:8080
+      - 50000:50000
+    container_name: cursos-jenkins
+    volumes:
+      - "jenkins-data:/var/jenkins_home"
+      - "war-data:/var/war"
+    depends_on:
+      - sonarqube
+  tomcat:
+    image: tomcat:8.5-alpine
+    container_name: cursos-tomcat
+    networks:
+      - cursosnetwork
+    ports:
+       - 8080:8080
+    volumes:
+      - "war-data:/usr/local/tomcat/webapps"

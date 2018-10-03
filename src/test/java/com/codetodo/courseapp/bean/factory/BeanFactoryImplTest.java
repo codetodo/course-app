@@ -32,11 +32,8 @@ public class BeanFactoryImplTest {
 	public void shouldCreateABean() {
 		BeanDefinitionsLoader beanDefsLoader = mock(BeanDefinitionsLoader.class);
 		Map<String, BeanDef> defs = getBeanDefs();
-
 		Optional<String> beanNameOptional = defs.keySet().stream().findFirst();
-
 		when(beanDefsLoader.load()).thenReturn(defs);
-
 		factory = BeanFactoryImpl.getInstance(beanDefsLoader);
 
 		Object instance = factory.getBean(beanNameOptional.get());
@@ -48,12 +45,9 @@ public class BeanFactoryImplTest {
 	public void shouldCreateOnlyOneInstanceOfBeanSetUpAsSingleton() {
 		BeanDefinitionsLoader beanDefsLoader = mock(BeanDefinitionsLoader.class);
 		Map<String, BeanDef> defs = getBeanDefs();
-
 		Optional<Entry<String, BeanDef>> singletonBean = defs.entrySet().stream()
 				.filter((e) -> e.getValue().isSingleton()).findFirst();
-
 		when(beanDefsLoader.load()).thenReturn(defs);
-
 		factory = BeanFactoryImpl.getInstance(beanDefsLoader);
 
 		Object instance1 = factory.getBean(singletonBean.get().getKey());

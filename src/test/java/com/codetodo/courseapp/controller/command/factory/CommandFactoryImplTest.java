@@ -35,13 +35,9 @@ public class CommandFactoryImplTest {
 	@Test(expected = IllegalStateException.class)
 	public void shouldThrowExceptionWhenInvokeCreateAndThereIsNoCommandRegisteredForGivenOperation() {
 		String httpMethod = "GET";
-
 		BeanFactory factory = mock(BeanFactory.class);
-
 		CommandFactory commandFactory = CommandFactoryImpl.getInstance(factory);
-
 		HttpServletRequest request = mock(HttpServletRequest.class);
-
 		when(request.getMethod()).thenReturn(httpMethod);
 		when(request.getRequestURI()).thenReturn(CONTEXT_PATH + "/professors");
 		when(request.getContextPath()).thenReturn(CONTEXT_PATH);

@@ -30,20 +30,15 @@ public class AddCourseCommandTest {
 	@Test
 	public void shouldReturnAddViewWhenInvokeExecute() {
 		List<Professor> professors = getProffesors();
-
 		HttpServletRequest request = mock(HttpServletRequest.class);
 		HttpServletResponse response = mock(HttpServletResponse.class);
-
 		ProfessorService professorService = mock(ProfessorService.class);
-
 		when(professorService.findAll()).thenReturn(professors);
-
 		addCourseCommand.setProfessorService(professorService);
-
+		
 		String resultView = addCourseCommand.execute(request, response);
 
 		verify(request, times(1)).setAttribute(AddCourseCommand.PROFESSORS_ATTR_NAME, professors);
-
 		assertEquals(AddCourseCommand.VIEW, resultView);
 	}
 
@@ -51,9 +46,7 @@ public class AddCourseCommandTest {
 	public void shouldFailWhenInvokeExecuteAndProfessorServiceIsNotSet() {
 		HttpServletRequest request = mock(HttpServletRequest.class);
 		HttpServletResponse response = mock(HttpServletResponse.class);
-
 		ProfessorService professorService = null;
-
 		addCourseCommand = new AddCourseCommand(professorService);
 
 		addCourseCommand.execute(request, response);
