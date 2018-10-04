@@ -2,7 +2,9 @@ package com.codetodo.courseapp.bean.factory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,16 +36,17 @@ public class JsonBeanDefinitionsLoader implements BeanDefinitionsLoader {
 		}
 	}
 
-	private File getBeanDefsFile() throws FileNotFoundException {
+	private File getBeanDefsFile() throws FileNotFoundException, UnsupportedEncodingException {
 		ClassLoader classLoader = getClass().getClassLoader();
-
+		
+		
 		URL url = classLoader.getResource(fileName);
 		if (url == null) {
 			throw new FileNotFoundException(
 					String.format("Configuratio File '%s' does not exist in classpath", fileName));
 		}
 
-		return new File(url.getFile());
+		return new File(URLDecoder.decode(url.getFile(), "UTF-8"));
 	}
 
 	public static class JsonBeanDefinitions {
