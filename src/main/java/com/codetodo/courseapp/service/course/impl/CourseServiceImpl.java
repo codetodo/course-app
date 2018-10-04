@@ -12,10 +12,6 @@ public class CourseServiceImpl implements CourseService {
 
 	private CourseDAO courseDAO;
 
-	public CourseServiceImpl() {
-
-	}
-
 	public void setCourseDAO(CourseDAO courseDAO) {
 		this.courseDAO = courseDAO;
 	}

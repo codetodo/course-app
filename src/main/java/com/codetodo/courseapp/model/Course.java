@@ -76,10 +76,6 @@ public class Course implements Serializable {
 		private boolean isActive;
 		private Professor professor;
 
-		public Builder() {
-
-		}
-
 		public Builder setId(Long id) {
 			this.id = id;
 			return this;

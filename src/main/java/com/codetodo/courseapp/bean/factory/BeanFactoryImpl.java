@@ -30,7 +30,7 @@ public class BeanFactoryImpl implements BeanFactory {
 			return createBeanAux(beanName);
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "Failed bean creation", e);
-			throw new RuntimeException("Failed bean creation: " + beanName, e);
+			throw new BeanCreationException("Failed bean creation: " + beanName, e);
 		}
 	}
 
