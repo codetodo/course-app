@@ -32,7 +32,7 @@ public class JsonBeanDefinitionsLoader implements BeanDefinitionsLoader {
 			return defsWrapper.defs;
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "Failed loading json configuration file", e);
-			throw new RuntimeException("Failed loading json configuration file", e);
+			throw new BeanCreationException("Failed loading json configuration file", e);
 		}
 	}
 

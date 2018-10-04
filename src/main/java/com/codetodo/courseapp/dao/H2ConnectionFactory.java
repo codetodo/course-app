@@ -27,7 +27,7 @@ public class H2ConnectionFactory implements ConnectionFactory {
 			org.h2.Driver.load();
 			return DriverManager.getConnection(url, user, pass);
 		} catch (SQLException ex) {
-			throw new RuntimeException("An error ocurred ");
+			throw new DataAccessException("An error ocurred ");
 		}
 	}
 }
