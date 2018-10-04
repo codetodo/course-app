@@ -115,8 +115,8 @@ public class Course implements Serializable {
 	public enum CourseLevel {
 		BASIC("1", "Basico"), MEDIUM("2", "Intermedio"), ADVANCED("3", "Avanzado");
 
-		static final Map<String, CourseLevel> BY_NAME_MAPPER = new HashMap<String, CourseLevel>();
-		static final Map<String, CourseLevel> BY_ID_MAPPER = new HashMap<String, CourseLevel>();
+		static final Map<String, CourseLevel> BY_NAME_MAPPER = new HashMap<>();
+		static final Map<String, CourseLevel> BY_ID_MAPPER = new HashMap<>();
 
 		private String id;
 		private String text;
