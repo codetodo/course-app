@@ -13,7 +13,7 @@ public class PropertyDef {
 		this.name = name;
 		this.value = value;
 	}
-	
+
 	public PropertyDef(String name, String refBean) {
 		this.name = name;
 		this.refBean = refBean;
@@ -45,11 +45,6 @@ public class PropertyDef {
 
 	public boolean isRefType() {
 		return refBean != null;
-	}
-
-	@Override
-	public String toString() {
-		return "PropertyDef [name=" + name + "]";
 	}
 
 }

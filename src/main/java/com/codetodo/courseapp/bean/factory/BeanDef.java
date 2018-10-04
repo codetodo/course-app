@@ -37,8 +37,4 @@ public class BeanDef {
 		this.singleton = singleton;
 	}
 
-	@Override
-	public String toString() {
-		return beanClass;
-	}
 }

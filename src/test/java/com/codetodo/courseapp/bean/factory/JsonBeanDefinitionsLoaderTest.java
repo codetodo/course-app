@@ -8,11 +8,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class JsonBeanDefinitionsLoaderTest {
-	
+
 	public static final String FILE_NAME = "test-bean-defs.json";
 
 	private BeanDefinitionsLoader beanDefsLoader;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		beanDefsLoader = new JsonBeanDefinitionsLoader();
@@ -20,10 +20,20 @@ public class JsonBeanDefinitionsLoaderTest {
 
 	@Test
 	public void shouldLoadBeanDefinitionsFromJSONFile() {
-		((JsonBeanDefinitionsLoader)beanDefsLoader).setFileName(FILE_NAME);
-		
+		((JsonBeanDefinitionsLoader) beanDefsLoader).setFileName(FILE_NAME);
+
 		Map<String, BeanDef> beanDefs = beanDefsLoader.load();
-		
+
+		assertNotNull(beanDefs);
+		assertNotNull(beanDefs.get("courseService"));
+	}
+
+	@Test(expected = Exception.class)
+	public void shouldFailWhenInvokeLoadAndConfigFileNoExist() {
+		((JsonBeanDefinitionsLoader) beanDefsLoader).setFileName("test");
+
+		Map<String, BeanDef> beanDefs = beanDefsLoader.load();
+
 		assertNotNull(beanDefs);
 		assertNotNull(beanDefs.get("courseService"));
 	}
