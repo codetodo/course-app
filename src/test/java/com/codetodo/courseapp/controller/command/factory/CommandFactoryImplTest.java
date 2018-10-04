@@ -94,16 +94,11 @@ public class CommandFactoryImplTest {
 	}
 
 	@Test
-	public void shouldCreateInstanceWithDefaultBeanFactory() {
-		CommandFactory commandFactory = CommandFactoryImpl.getInstance();
-		assertTrue(((CommandFactoryImpl)commandFactory).getBeanFactory() instanceof BeanFactoryImpl);
-
-	}
-	
-	@Test
 	public void shouldCreateUniqueInstanceOfCommandFactory() {
-		CommandFactory commandFactory1 = CommandFactoryImpl.getInstance();
-		CommandFactory commandFactory2 = CommandFactoryImpl.getInstance();
+		BeanFactory factory = mock(BeanFactory.class);
+		
+		CommandFactory commandFactory1 = CommandFactoryImpl.getInstance(factory);
+		CommandFactory commandFactory2 = CommandFactoryImpl.getInstance(factory);
 		
 		assertEquals(commandFactory1, commandFactory2);
 
