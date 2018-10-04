@@ -29,7 +29,7 @@ public class FrontController extends HttpServlet {
 	}
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, java.io.IOException {
+			throws ServletException, IOException {
 
 		String view = null;
 

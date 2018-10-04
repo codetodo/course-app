@@ -18,10 +18,10 @@ public class AddCourseCommand implements Command {
 	
     public static final String NAME = "addCourseCommand";
 
-	public final static String VIEW = "views/course/add.jsp";
+	public static final String VIEW = "views/course/add.jsp";
 	
-	public final static String PROFESSORS_ATTR_NAME = "professors";
-	public final static String LEVELS_ATTR_NAME = "levels";
+	public static final String PROFESSORS_ATTR_NAME = "professors";
+	public static final String LEVELS_ATTR_NAME = "levels";
 
 	private ProfessorService professorService;
 

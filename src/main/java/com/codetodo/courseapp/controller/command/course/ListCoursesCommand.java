@@ -15,9 +15,9 @@ public class ListCoursesCommand implements Command {
 	
 	public static final String NAME = "listCoursesCommand";
 
-	public final static String VIEW = "index.jsp";
+	public static final String VIEW = "index.jsp";
 	
-	public final static String COURSE_ATTR_NAME = "courses";
+	public static final String COURSE_ATTR_NAME = "courses";
 	
 	private CourseService courseService;
 

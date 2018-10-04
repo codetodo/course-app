@@ -49,7 +49,7 @@ public class BeanFactoryImpl implements BeanFactory {
 		}
 
 		Class<?> beanClass = Class.forName(beanDef.getBeanClass());
-		Object instance = beanClass.newInstance();
+		Object beanInstance = beanClass.newInstance();
 
 		for (PropertyDef propertyDef : beanDef.getProperties()) {
 			Object propertyValue = null;
@@ -59,15 +59,15 @@ public class BeanFactoryImpl implements BeanFactory {
 				propertyValue = propertyDef.getValue();
 			}
 			if (propertyValue != null) {
-				setProperty(instance, propertyDef.getName(), propertyValue);
+				setProperty(beanInstance, propertyDef.getName(), propertyValue);
 			}
 		}
 
 		if (beanDef.isSingleton()) {
-			singlentonBeans.put(name, instance);
+			singlentonBeans.put(name, beanInstance);
 		}		
 
-		return instance;
+		return beanInstance;
 	}
 
 	private void setProperty(Object bean, String name, Object value)

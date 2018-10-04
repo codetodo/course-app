@@ -13,15 +13,15 @@ public class CreateCourseCommand implements Command {
 	
 	public static final String NAME = "addCourseCommand";
 
-	public final static String VIEW = "index.jsp";
+	public static final String VIEW = "index.jsp";
 
-	public final static String ACTIVE_PARAMETER_NAME = "active";
-	public final static String PROFESSOR_PARAMETER_NAME = "professor";
-	public final static String TITLE_PARAMETER_NAME = "title";
-	public final static String HOURS_PARAMETER_NAME = "active";
-	public final static String LEVEL_PARAMETER_NAME = "active";
+	public static final String ACTIVE_PARAMETER_NAME = "active";
+	public static final String PROFESSOR_PARAMETER_NAME = "professor";
+	public static final String TITLE_PARAMETER_NAME = "title";
+	public static final String HOURS_PARAMETER_NAME = "active";
+	public static final String LEVEL_PARAMETER_NAME = "active";
 
-	public final static String ACTIVE_TRUE_VALUE = "ON";
+	public static final String ACTIVE_TRUE_VALUE = "ON";
 
 	private CourseService courseService;
 
