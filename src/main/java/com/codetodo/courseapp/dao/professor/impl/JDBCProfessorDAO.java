@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.codetodo.courseapp.dao.ConnectionFactory;
+import com.codetodo.courseapp.dao.DataAccessException;
 import com.codetodo.courseapp.dao.professor.ProfessorDAO;
 import com.codetodo.courseapp.model.Professor;
 
@@ -35,7 +36,7 @@ public class JDBCProfessorDAO implements ProfessorDAO {
 			}
 
 		} catch (SQLException e) {
-			throw new RuntimeException(e.getMessage());
+			throw new DataAccessException(e.getMessage());
 		}
 
 		return result;

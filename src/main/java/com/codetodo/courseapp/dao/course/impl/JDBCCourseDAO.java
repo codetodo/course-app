@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.codetodo.courseapp.dao.ConnectionFactory;
+import com.codetodo.courseapp.dao.DataAccessException;
 import com.codetodo.courseapp.dao.course.CourseDAO;
 import com.codetodo.courseapp.model.Course;
 import com.codetodo.courseapp.model.Course.CourseLevel;
@@ -38,7 +39,7 @@ public class JDBCCourseDAO implements CourseDAO {
 			}
 
 		} catch (SQLException e) {
-			throw new RuntimeException(e.getMessage());
+			throw new DataAccessException(e.getMessage());
 		}
 
 		return result;
@@ -64,7 +65,7 @@ public class JDBCCourseDAO implements CourseDAO {
 			stmt.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new RuntimeException(e.getMessage());
+			throw new DataAccessException(e.getMessage());
 		}
 	}
 
