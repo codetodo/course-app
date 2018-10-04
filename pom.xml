@@ -178,5 +178,19 @@
 		</pluginManagement>
 	</build>
 
+	<!-- <repositories> -->
+	<!-- <repository> -->
+	<!-- <id>nexus-repo</id> -->
+	<!-- <url>http://cursos-nexus:8081/nexus</url> -->
+	<!-- </repository> -->
+	<!-- </repositories> -->
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>nexus-repo</id>
+			<url>http://cursos-nexus:8081/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 
 </project>
