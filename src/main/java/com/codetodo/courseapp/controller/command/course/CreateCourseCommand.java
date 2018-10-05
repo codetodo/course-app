@@ -21,7 +21,7 @@ public class CreateCourseCommand implements Command {
 	public static final String HOURS_PARAMETER_NAME = "hours";
 	public static final String LEVEL_PARAMETER_NAME = "level";
 
-	public static final String ACTIVE_TRUE_VALUE = "ON";
+	public static final String ACTIVE_TRUE_VALUE = "on";
 
 	private CourseService courseService;
 
