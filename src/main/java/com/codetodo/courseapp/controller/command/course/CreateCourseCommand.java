@@ -11,15 +11,15 @@ import com.codetodo.courseapp.service.course.CourseService;
 
 public class CreateCourseCommand implements Command {
 	
-	public static final String NAME = "addCourseCommand";
+	public static final String NAME = "createCourseCommand";
 
 	public static final String VIEW = "index.jsp";
 
 	public static final String ACTIVE_PARAMETER_NAME = "active";
 	public static final String PROFESSOR_PARAMETER_NAME = "professor";
 	public static final String TITLE_PARAMETER_NAME = "title";
-	public static final String HOURS_PARAMETER_NAME = "active";
-	public static final String LEVEL_PARAMETER_NAME = "active";
+	public static final String HOURS_PARAMETER_NAME = "hours";
+	public static final String LEVEL_PARAMETER_NAME = "level";
 
 	public static final String ACTIVE_TRUE_VALUE = "ON";
 
