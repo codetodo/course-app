@@ -1,4 +1,4 @@
 # CourseApp V2
 
-Improve CourseApp version
+Improve CourseApp version by adding CI integration
 
