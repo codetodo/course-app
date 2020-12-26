@@ -1,2 +1,4 @@
-# CourseApp v2
+# CourseApp V2
+
+Improve CourseApp version
 
